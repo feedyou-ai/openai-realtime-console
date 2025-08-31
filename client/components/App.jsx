@@ -15,7 +15,7 @@ export default function App() {
     // Get an ephemeral key from the Fastify server
     const tokenResponse = await fetch("/token");
     const data = await tokenResponse.json();
-    const EPHEMERAL_KEY = data.client_secret.value;
+    const EPHEMERAL_KEY = data.value;
 
     // Create a peer connection
     const pc = new RTCPeerConnection();
@@ -39,9 +39,9 @@ export default function App() {
     const offer = await pc.createOffer();
     await pc.setLocalDescription(offer);
 
-    const baseUrl = "https://api.openai.com/v1/realtime";
-    const model = "gpt-4o-realtime-preview-2024-12-17";
-    const sdpResponse = await fetch(`${baseUrl}?model=${model}`, {
+    const baseUrl = "https://api.openai.com/v1/realtime/calls";
+    const model = "gpt-realtime";
+    const sdpResponse = await fetch(`${baseUrl}?model=${model}`,{
       method: "POST",
       body: offer.sdp,
       headers: {
@@ -55,6 +55,19 @@ export default function App() {
       sdp: await sdpResponse.text(),
     };
     await pc.setRemoteDescription(answer);
+
+    const location = sdpResponse.headers.get("Location");
+    const callId = location?.split("/").pop();
+    console.log('callId', callId);
+    
+    fetch('http://localhost:7071/api/messages/realtime/calls', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${EPHEMERAL_KEY}`},
+      body: JSON.stringify({call_id: callId})
+    })
+      .then(response => response.text())
+      .then(response => console.log('Bot hosting response', response))
+      .catch(err => console.error(err));
 
     peerConnection.current = pc;
   }
@@ -148,12 +161,12 @@ export default function App() {
           </section>
         </section>
         <section className="absolute top-0 w-[380px] right-0 bottom-0 p-4 pt-0 overflow-y-auto">
-          <ToolPanel
+          {/*<ToolPanel
             sendClientEvent={sendClientEvent}
             sendTextMessage={sendTextMessage}
             events={events}
             isSessionActive={isSessionActive}
-          />
+          />*/}
         </section>
       </main>
     </>

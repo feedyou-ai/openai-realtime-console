@@ -1,3 +1,4 @@
+// WARN unused?
 export async function GET() {
   const r = await fetch("https://api.openai.com/v1/realtime/sessions", {
     method: "POST",
@@ -6,8 +7,8 @@ export async function GET() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "gpt-4o-realtime-preview-2024-12-17",
-      voice: "verse",
+      model: "gpt-realtime",
+      voice: "marin"
     }),
   });
 
