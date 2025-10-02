@@ -12,8 +12,11 @@ export default function App() {
   const audioElement = useRef(null);
 
   async function startSession() {
+    const bot = window.location.href.split('/')[4].split('?')[0].split('#')[0]
+    const api = bot ? `https://feedbot-${bot}-app.azurewebsites.net` : 'http://localhost:7071'
+
     // Get an ephemeral key from the Fastify server
-    const tokenResponse = await fetch("/token");
+    const tokenResponse = await fetch(api+"/api/messages/realtime/token", {method: 'POST'});
     const data = await tokenResponse.json();
     const EPHEMERAL_KEY = data.value;
 
@@ -60,7 +63,8 @@ export default function App() {
     const callId = location?.split("/").pop();
     console.log('callId', callId);
     
-    fetch('http://localhost:7071/api/messages/realtime/calls', {
+    fetch(api+'/api/messages/realtime/calls', {
+    //fetch('https://feedbot-master-realtime-voice-app.azurewebsites.net/api/messages/realtime/calls?code=cb4ba4ab-93f9-4048-bd10-c4bda0b175d0', {
       method: 'POST',
       headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${EPHEMERAL_KEY}`},
       body: JSON.stringify({call_id: callId})
@@ -140,7 +144,7 @@ export default function App() {
     <>
       <nav className="absolute top-0 left-0 right-0 h-16 flex items-center">
         <div className="flex items-center gap-4 w-full m-4 pb-2 border-0 border-b border-solid border-gray-200">
-          <img style={{ width: "24px" }} src={logo} />
+          <img style={{ width: "56px" }} src="https://feedyou.ai/wp-content/uploads/2022/02/Feedyou_logo_red_clean.svg" />
           <h1>realtime console</h1>
         </div>
       </nav>

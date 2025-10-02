@@ -44,6 +44,7 @@ server.get("/token", async () => {
             voice: "marin",
           },
         },
+        tracing: "auto"
     },
   });
   const response = await fetch(
