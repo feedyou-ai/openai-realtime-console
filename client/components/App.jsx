@@ -12,7 +12,7 @@ export default function App() {
   const audioElement = useRef(null);
 
   async function startSession() {
-    const bot = window.location.href.split('/')[4].split('?')[0].split('#')[0]
+    const bot = window.location.href.split('/')[4]?.split('?')[0]?.split('#')[0]
     const api = bot ? `https://feedbot-${bot}-app.azurewebsites.net` : 'http://localhost:7071'
 
     // Get an ephemeral key from the Fastify server
