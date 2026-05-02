@@ -1,5 +1,5 @@
 import { AgentAudioVisualizerAura } from "@/components/agents-ui/agent-audio-visualizer-aura";
-import { AURA_COLOR, AURA_LISTENING_COLOR } from "../lib/aura-colors";
+import { AURA_COLOR } from "../lib/aura-colors";
 
 export default function AgentAuraPanel({ agentState, audioTrack, canStartSession, onStartSession }) {
   return (
@@ -14,8 +14,8 @@ export default function AgentAuraPanel({ agentState, audioTrack, canStartSession
         size="xl"
         state={agentState}
         audioTrack={audioTrack}
-        color={agentState === "listening" ? AURA_LISTENING_COLOR : AURA_COLOR}
-        colorShift={0.3}
+        color={AURA_COLOR}
+        colorShift={agentState === "listening" ? 0.1 : 0.5}
         themeMode="light"
         className={`h-full transition-opacity duration-500 ${
           agentState === "disconnected" ? "opacity-70" : "opacity-100"
