@@ -16,15 +16,13 @@ Running this application locally requires [Node.js](https://nodejs.org/) to be i
 npm install
 ```
 
-Start the application server with:
+Start the Vite development server with:
 
 ```bash
 npm run dev
 ```
 
-This should start the console application on [http://localhost:3000](http://localhost:3000).
-
-_Note:_ The `server.js` file uses [@fastify/vite](https://fastify-vite.dev/) to build and serve the Astro frontend contained in the `/client` folder. You can find the configuration in the [`vite.config.js` file](./vite.config.js)
+This should start the console application on [http://127.0.0.1:3000](http://127.0.0.1:3000).
 
 ## Previous WebSockets version
 

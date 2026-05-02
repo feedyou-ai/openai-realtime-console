@@ -1,9 +1,31 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { LocalAudioTrack, RemoteAudioTrack } from "livekit-client";
 
+const SELECTED_AUDIO_INPUT_STORAGE_KEY = "realtime-console:selected-audio-input-id";
+
+function getStoredAudioInputId() {
+  try {
+    return localStorage.getItem(SELECTED_AUDIO_INPUT_STORAGE_KEY) || "";
+  } catch {
+    return "";
+  }
+}
+
+function storeAudioInputId(deviceId) {
+  try {
+    if (deviceId) {
+      localStorage.setItem(SELECTED_AUDIO_INPUT_STORAGE_KEY, deviceId);
+    } else {
+      localStorage.removeItem(SELECTED_AUDIO_INPUT_STORAGE_KEY);
+    }
+  } catch {
+    // Ignore storage failures; device selection still works for the current session.
+  }
+}
+
 export function useAudioDevices() {
   const [audioInputs, setAudioInputs] = useState([]);
-  const [selectedAudioInputId, setSelectedAudioInputId] = useState("");
+  const [selectedAudioInputId, setSelectedAudioInputId] = useState(getStoredAudioInputId);
   const [isMicEnabled, setIsMicEnabled] = useState(true);
   const [agentAudioTrack, setAgentAudioTrack] = useState(null);
   const [localAudioTrack, setLocalAudioTrack] = useState(null);
@@ -87,6 +109,7 @@ export function useAudioDevices() {
   const changeAudioInput = useCallback(
     async (deviceId) => {
       setSelectedAudioInputId(deviceId);
+      storeAudioInputId(deviceId);
 
       if (!localAudioSender.current) return;
 

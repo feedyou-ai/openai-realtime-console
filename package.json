@@ -1,12 +1,11 @@
 {
   "type": "module",
   "scripts": {
-    "dev": "node server.js --dev",
-    "start": "node server.js",
-    "build": "npm run build:client && npm run build:server",
+    "dev": "vite --host 127.0.0.1 --port 3000",
+    "start": "vite preview --host 127.0.0.1 --port 3000 --outDir dist/client",
+    "build": "npm run build:client",
     "build:client": "vite build --outDir dist/client --ssrManifest",
-    "build:server": "vite build --outDir dist/server --ssr ./server.js",
-    "devinstall": "zx ../../devinstall.mjs -- node server.js --dev",
+    "devinstall": "zx ../../devinstall.mjs -- vite --host 127.0.0.1 --port 3000",
     "lint": "eslint . --ext .js,.jsx --fix"
   },
   "dependencies": {
