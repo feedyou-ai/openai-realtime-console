@@ -1,4 +1,4 @@
-export const AURA_COLOR = import.meta.env.VITE_AURA_COLOR || "#7373e0";
+export const AURA_COLOR = import.meta.env.VITE_AURA_COLOR || "#1c87c9";
 
 // NOT USED CURRENTLY, but can be used in the future for a more dynamic listening color based on the main aura color
 export function deriveComplementaryColor(hexColor) {
