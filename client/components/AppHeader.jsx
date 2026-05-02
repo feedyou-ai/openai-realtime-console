@@ -1,8 +1,8 @@
 import { Radio } from "lucide-react";
 
-export default function AppHeader({ showAdminEvents, onOpenEvents }) {
+export default function AppHeader({ showAdminEvents, isEventsOpen, onOpenEvents }) {
   return (
-    <nav className="absolute left-0 right-0 top-0 z-10 flex h-16 items-center">
+    <nav className="z-10 flex h-16 shrink-0 items-center">
       <div
         className={[
           "relative m-4 flex w-full items-center justify-center gap-4",
@@ -15,7 +15,7 @@ export default function AppHeader({ showAdminEvents, onOpenEvents }) {
           className="h-auto w-24"
           src="https://feedyou.ai/wp-content/uploads/2022/02/Feedyou_logo_red_clean.svg"
         />
-        {showAdminEvents && (
+        {showAdminEvents && !isEventsOpen && (
           <button
             type="button"
             onClick={onOpenEvents}
