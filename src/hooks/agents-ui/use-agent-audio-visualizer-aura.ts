@@ -76,7 +76,7 @@ export function useAgentAudioVisualizerAura(
       case 'listening':
       case 'pre-connect-buffering':
         setSpeed(20);
-        animateScale(0.3, { type: 'spring', duration: 1.0, bounce: 0.35 });
+        animateScale(0.21, { type: 'spring', duration: 1.0, bounce: 0.35 });
         animateAmplitude(1.0, DEFAULT_TRANSITION);
         animateFrequency(0.7, DEFAULT_TRANSITION);
         animateBrightness([1.5, 2.0], DEFAULT_PULSE_TRANSITION);
@@ -101,6 +101,11 @@ export function useAgentAudioVisualizerAura(
   }, [state, animateScale, animateAmplitude, animateFrequency, animateBrightness]);
 
   useEffect(() => {
+    if (state === 'listening' && volume > 0 && !scaleMotionValue.isAnimating()) {
+      const listeningVolume = Math.min(Math.max((volume - 0.02) / 0.65, 0), 1);
+      animateScale(0.21 + listeningVolume * 0.06, { duration: 0 });
+    }
+
     if (state === 'speaking' && volume > 0 && !scaleMotionValue.isAnimating()) {
       animateScale(0.2 + 0.2 * volume, { duration: 0 });
     }
