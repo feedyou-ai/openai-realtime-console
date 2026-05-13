@@ -103,7 +103,7 @@ export function useRealtimeSession({
       await pc.setLocalDescription(offer);
 
       const baseUrl = "https://api.openai.com/v1/realtime/calls";
-      const model = "gpt-realtime-1.5"; // TODO make configurable
+      const model = new URLSearchParams(window.location.search).get("model") || "gpt-realtime-1.5"; // TODO pick current value using some channel config request from hosting
       const sdpResponse = await fetch(`${baseUrl}?model=${model}`, {
         method: "POST",
         body: offer.sdp,

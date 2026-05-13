@@ -34,30 +34,34 @@ export default function App() {
           onOpenEvents={() => setIsEventsOpen(true)}
         />
 
-        <main className="flex min-h-0 flex-1 overflow-hidden">
-          <section className="flex h-full min-w-0 flex-1 flex-col items-center justify-center gap-8 px-4 pb-12">
-            <AgentAuraPanel
-              agentState={realtimeSession.agentState}
-              audioTrack={auraAudioTrack}
-              canStartSession={realtimeSession.canStartSession}
-              onStartSession={realtimeSession.startSession}
-            />
+        <main className="flex min-h-0 flex-1 overflow-hidden px-4 pb-8">
+          <section className="flex min-h-0 min-w-0 flex-1 flex-col">
+            <div className="flex min-h-0 flex-1 items-center justify-center">
+              <AgentAuraPanel
+                agentState={realtimeSession.agentState}
+                audioTrack={auraAudioTrack}
+                canStartSession={realtimeSession.canStartSession}
+                onStartSession={realtimeSession.startSession}
+              />
+            </div>
 
-            <AgentControlBar
-              audioInputs={audioDevices.audioInputs}
-              selectedAudioInputId={audioDevices.selectedAudioInputId}
-              agentState={realtimeSession.agentState}
-              statusLabel={realtimeSession.statusLabel}
-              canStartSession={realtimeSession.canStartSession}
-              isSessionActive={realtimeSession.isSessionActive}
-              isMicEnabled={audioDevices.isMicEnabled}
-              isStarting={realtimeSession.isStarting}
-              isSessionPending={realtimeSession.isSessionPending}
-              onStartSession={realtimeSession.startSession}
-              onAudioInputChange={audioDevices.changeAudioInput}
-              onMicToggle={audioDevices.toggleMicrophone}
-              onDisconnect={realtimeSession.stopSession}
-            />
+            <div className="flex shrink-0 justify-center pt-6">
+              <AgentControlBar
+                audioInputs={audioDevices.audioInputs}
+                selectedAudioInputId={audioDevices.selectedAudioInputId}
+                agentState={realtimeSession.agentState}
+                statusLabel={realtimeSession.statusLabel}
+                canStartSession={realtimeSession.canStartSession}
+                isSessionActive={realtimeSession.isSessionActive}
+                isMicEnabled={audioDevices.isMicEnabled}
+                isStarting={realtimeSession.isStarting}
+                isSessionPending={realtimeSession.isSessionPending}
+                onStartSession={realtimeSession.startSession}
+                onAudioInputChange={audioDevices.changeAudioInput}
+                onMicToggle={audioDevices.toggleMicrophone}
+                onDisconnect={realtimeSession.stopSession}
+              />
+            </div>
           </section>
         </main>
       </div>
