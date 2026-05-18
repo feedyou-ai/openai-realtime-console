@@ -58,7 +58,7 @@ export function getAgentStateFromEvent(event, fallbackState) {
   }
 }
 
-export function getRealtimeUserPayload() {
+export function getRealtimeUserData() {
   const searchParams = new URLSearchParams(window.location.search);
   const userData = {};
 
@@ -76,6 +76,6 @@ export function getRealtimeUserPayload() {
 
   return {
     userRole: searchParams.has("admin") ? "admin" : searchParams.has("customer") ? "customer" : "user",
-    userData,
+    ...userData
   };
 }

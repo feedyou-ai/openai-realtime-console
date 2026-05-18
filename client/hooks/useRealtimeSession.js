@@ -5,7 +5,7 @@ import {
   RESPONSE_AUDIO_EVENTS,
   RESPONSE_DONE_EVENTS,
   getAgentStateFromEvent,
-  getRealtimeUserPayload,
+  getRealtimeUserData,
 } from "../lib/realtime-state";
 
 export function useRealtimeSession({
@@ -79,8 +79,7 @@ export function useRealtimeSession({
 
       const tokenResponse = await fetch(`${api}/api/messages/realtime/token`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(getRealtimeUserPayload()),
+        headers: { "Content-Type": "application/json" }
       });
       const data = await tokenResponse.json();
       const EPHEMERAL_KEY = data.value;
@@ -127,7 +126,7 @@ export function useRealtimeSession({
         //fetch('https://feedbot-master-realtime-voice-app.azurewebsites.net/api/messages/realtime/calls?code=cb4ba4ab-93f9-4048-bd10-c4bda0b175d0', {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${EPHEMERAL_KEY}` },
-        body: JSON.stringify({ call_id: callId }),
+        body: JSON.stringify({ call_id: callId, user_data: getRealtimeUserData(), }),
       })
         .then((response) => response.text())
         .then((response) => console.log("Bot hosting response", response))
