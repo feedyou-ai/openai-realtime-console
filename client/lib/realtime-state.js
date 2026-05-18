@@ -63,7 +63,7 @@ export function getRealtimeUserData() {
   const userData = {};
 
   for (const [key, value] of searchParams.entries()) {
-    if (key === "admin" || key === "customer") continue;
+    if (key === "admin" || key === "customer" || key === 'model') continue;
 
     if (Object.hasOwn(userData, key)) {
       userData[key] = Array.isArray(userData[key])
